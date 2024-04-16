@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import re
 import nltk
+import chardet
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
@@ -12,7 +13,7 @@ nltk.download('punkt')
 """Prepare the dataset before training"""
 
 # 1.1 Load dataset
-dataset = pd.read_csv('Dataset/IMDB.csv')
+dataset = pd.read_csv('Dataset/IMDB.csv', encoding_errors='replace')
 print(f"Dataset shape : {dataset.shape}\n")
 print(f"Dataset head : \n{dataset.head()}\n")
 
