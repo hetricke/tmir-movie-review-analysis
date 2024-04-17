@@ -4,6 +4,8 @@ import re
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
 
 nltk.download('stopwords')
 nltk.download('punkt')
@@ -54,9 +56,18 @@ print(f"Review sample after removing stopwords : \n{dataset.review[0]}\n")
 """Create model to fit it to the data"""
 
 # 3.1 Creating Bag Of Words (BOW)
-X = np.array(dataset.iloc[:,0].values)
+x = np.array(dataset.iloc[:,0].values)
 y = np.array(dataset.sentiment.values)
-X = cv.fit_transform(dataset.review).toarray()
+#X = cv.fit_transform(dataset.review).toarray()
 print(f"=== Bag of words ===\n")
-print(f"BOW X shape : {X.shape}")
+print(f"BOW X shape : {x.shape}")
 print(f"BOW y shape : {y.shape}\n")
+
+#3.2 Split data into train and test sets
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.5, random_state=0)
+
+#3.3 Train Bayes Network
+gauss_nb = GaussianNB()
+y_pred = gauss_nb.fit(x_train, y_train).predict(x_test)
+
+print("Number of mislabeled points out of a total %d points : %d" % (x_test.shape[0], (y_test != y_pred).sum()))
