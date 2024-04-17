@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 import re
 import nltk
-import chardet
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
