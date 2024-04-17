@@ -5,7 +5,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import CategoricalNB
 
 nltk.download('stopwords')
 nltk.download('punkt')
@@ -81,8 +81,8 @@ print(f"BOW y shape : {y_data.shape}\n")
 x_train, x_test, y_train, y_test = train_test_split(x_data, y_data, test_size=0.5, random_state=0)
 
 #3.3 Train Bayes Network
-gauss_nb = GaussianNB()
-trained_model = gauss_nb.fit(x_train, y_train)
+categorial_nb = CategoricalNB()
+trained_model = categorial_nb.fit(x_train, y_train)
 y_pred = trained_model.predict(x_test)
 
 print("Number of mislabeled points out of a total %d points : %d" % (x_test.shape[0], (y_test != y_pred).sum()))
